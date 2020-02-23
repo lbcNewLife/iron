@@ -6,7 +6,9 @@ import router from "./router";
 import store from "./store";
 import Vant from 'vant';
 import 'vant/lib/index.css';
-
+import 'view-design/dist/styles/iview.css'
+import { Input } from 'view-design';
+Vue.component('Input', Input);
 Vue.use(Vant);
 
 Vue.config.productionTip = false;
