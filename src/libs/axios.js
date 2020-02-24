@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Toast } from 'vant';
-import router from '@/router/index.js'
 import ls from './ls.js'
 class HttpRequest {
     constructor (baseUrl = baseURL) {

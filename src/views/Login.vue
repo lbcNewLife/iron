@@ -10,11 +10,12 @@
             <img alt="password" src="../assets/password.png"  slot="prefix" />
         </Input>
         <van-checkbox v-model="remember" shape="square" checked-color="#ff5f18">记住密码</van-checkbox>
-        <van-button block color="linear-gradient(to top, #06a6f7, #38c8fd)">登录</van-button>
+        <van-button block color="linear-gradient(to top, #06a6f7, #38c8fd)" @click="handleSubmit">登录</van-button>
     </div>
   </div>
 </template>
 <script>
+import ls from '@/libs/ls.js'
 
 export default {
     name: 'Login',
@@ -30,6 +31,39 @@ export default {
     mounted(){
         this.checkPoint = this.$route.query.checkPoint ? this.$route.query.checkPoint : null
         this.pageOption = this.$route.query.pageOption ? this.$route.query.pageOption : null
+        this.getPassword()
+    },
+    methods: {
+        getPassword () {
+            let type = ls.fetch('isremember')
+            let user = ls.fetch('username')
+            let pass = ls.fetch('password')
+            if (type && pass && user) {
+                this.password = pass
+                this.userName = user
+                this.remenber = true
+            }
+        },
+        handleSubmit () {
+            this.$store
+                .dispatch('Login', { username: this.userName, password: this.password })
+                .then(res => {
+                    ls.saveSession('loginType', true)
+                    ls.save('username', username)
+                    ls.save('password', password)
+                    ls.saveSession('username', username)
+                    ls.saveSession('password', password)
+                    if (this.remember) {
+                        ls.save('isremember', true)
+                    } else {
+                        ls.save('isremember', false)
+                    }
+                })
+                .catch(err => {
+
+                })
+
+        }
     }
 }
 </script>

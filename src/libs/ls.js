@@ -9,7 +9,7 @@ let local = {
     saveSession (key, value) {
         sessionStorage.setItem(key, value)
     },
-    fetchSession (key, value) {
+    fetchSession (key) {
         return sessionStorage.getItem(key) || ''
     }
 }
